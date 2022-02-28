@@ -4,6 +4,7 @@ export interface IDatabaseConnection {
     databaseUsername: string,
     databasePassword: string,
     databaseSchema: string,
+    databaseLogging: boolean
 }
 
 export interface IDatabase {

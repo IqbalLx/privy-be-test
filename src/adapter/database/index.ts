@@ -1,14 +1,15 @@
-import { readEnv } from "../../utils/readEnv";
+import { config } from "../../../config";
 import { IDatabaseConnection } from "./IDatabase";
 
 import SequelizeDatabase from "./sequelize"
 
 const connectionConf: IDatabaseConnection = {
-    databaseHost: readEnv.get("DATABASE_HOST"),
-    databasePort: parseInt(readEnv.get("DATABASE_PORT")),
-    databaseSchema: readEnv.get("DATABASE_SCHEMA"),
-    databaseUsername: readEnv.get("DATABASE_USERNAME"),
-    databasePassword: readEnv.get("DATABASE_PASSWORD"),
+    databaseHost: config.database.host,
+    databasePort: config.database.port,
+    databaseSchema: config.database.schema,
+    databaseUsername: config.database.username,
+    databasePassword: config.database.password,
+    databaseLogging: config.app.env == "development"
 }
 
 const database = new SequelizeDatabase(connectionConf)
@@ -16,4 +17,4 @@ database.buildModel()
 
 const models = database.getModels()
 
-export default models
+export { models }

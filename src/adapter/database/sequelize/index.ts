@@ -1,12 +1,14 @@
 import { IDatabase, IDatabaseConnection } from "../IDatabase"
 import { Sequelize, Model } from "sequelize";
 
-import { buildUserModel } from "../../../model/sequelize/user.model";
-import { buildUserBalanceModel } from "../../../model/sequelize/userBalance.model";
-import { buildUserBalanceHistoryModel } from "../../../model/sequelize/userBalanceHistory.model";
+import { 
+    buildUserModel, 
+    buildUserBalanceModel, 
+    buildUserBalanceHistoryModel 
+} from "../../../model/sequelize";
 
 type modelNames = "user" | "userBalance" | "userBalanceHistory"
-class ModelInstance extends Model {}
+export class ModelInstance extends Model {}
 
 class SequelizeDatabase implements IDatabase {
     sequelizeIntance: Sequelize
@@ -20,7 +22,8 @@ class SequelizeDatabase implements IDatabase {
         return new Sequelize(connectionConf.databaseSchema, connectionConf.databaseUsername, connectionConf.databasePassword, {
             host: connectionConf.databaseHost,
             port: connectionConf.databasePort,
-            dialect: "postgres"
+            dialect: "postgres",
+            logging: connectionConf.databaseLogging
         })
     }
 
